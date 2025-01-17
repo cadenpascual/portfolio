@@ -7,14 +7,3 @@ body {
     margin-inline: auto;
     padding: 10ch;
   }
-
-nav ul,
-nav ul li {
-  display: contents;
-}
-
-/*nav {
-  display: flex
-}*/
-
-
