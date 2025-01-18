@@ -52,5 +52,20 @@ html {
     border-bottom: 0.4em solid var(--color-accent);
     color: var(--color-accent); 
   }
-  
+
+form {
+    display:grid;
+    grid-template-columns: auto 1fr;
+    gap: 1em;
+}
+
+label {
+    display: grid; /* Make each label a grid container */
+    grid-template-columns: subgrid; /* Use the form's grid columns */
+    grid-column: 1 / -1; /* Make labels span the full width of the form */
+  }
+
+button {
+    grid-column: 1 / -1;
+}
   
