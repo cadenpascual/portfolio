@@ -44,13 +44,12 @@ nav a {
   text-decoration: none;
   color: inherit;
   padding: 0.5em;
-  border-bottom: 0.4em solid transparent; /* Prevent layout shift */
+  border-bottom: 0.4em solid transparent;
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover styles using the accent color */
 nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
-  color: var(--color-accent); /* Optional: Change text color on hover */
+  color: var(--color-accent); 
 }
 
