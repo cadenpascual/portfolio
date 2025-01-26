@@ -1,5 +1,7 @@
 html {
   accent-color: var(--color-accent);
+  color-scheme: dark;
+  border-bottom-color: var(--border-color)
 }
 
 :root {
@@ -14,6 +16,7 @@ body {
 }
 
 nav {
+  --border-color: oklch(50% 10% 200 / 40%);
   display: flex;
   margin-bottom: 0.75em;
   border-bottom: 1px solid oklch(80% 3% 200);
@@ -46,9 +49,20 @@ nav a:hover {
   color: var(--color-accent);
 }
 
-#current {
+.current {
   border-bottom: 0.4em solid oklch(80% 3% 200);
   padding-bottom: 0.1em;
+}
+
+label.color-scheme {
+  position:absolute;
+  top:1rem;
+  right: 1rem;
+}
+
+select {
+  padding: 0.5em;
+  font-size: 1rem;
 }
 
 
