@@ -1,62 +1,89 @@
-console.log('IT’S ALIVE!');
+// global.js
+
+console.log("IT'S ALIVE!");
 
 function $$(selector, context = document) {
-    return Array.from(context.querySelectorAll(selector));
-  }
-  
-  // Select all navigation links
-navLinks = $$("nav a");
-  
-  // Find the link matching the current page's host and path
-currentLink = navLinks.find(
-    (a) => a.host === location.host && a.pathname === location.pathname
-);
-  
-  // If a matching link is found, add the 'current' class
-  a.classList.toggle(
-    'current',
-    a.host === location.host && a.pathname === location.pathname
-  );
-
-let pages = [
-    { url: '', title: 'Home' },
-    { url: 'projects/', title: 'Projects' },
-    { url: 'contact/', title: 'Contact' },
-    { url: 'resume/', title: 'Resume' },
-    { url: 'highlight/', title: 'Highlight' },
-
-];
-
-let nav = document.createElement('nav');
-document.body.prepend(nav);
-
-for (let p of pages) {
-    let url = p.url;
-    let title = p.title;
-    let a = document.createElement('a');
-    a.href = url;
-    a.textContent = title;
-    nav.append(a);
+  return Array.from(context.querySelectorAll(selector));
 }
 
-const ARE_WE_HOME = document.documentElement.classList.contains('home');
-url = !ARE_WE_HOME && !url.startsWith('http') ? '../' + url : url;
-
-  
-document.body.insertAdjacentHTML(
-    'afterbegin',
-    `
-      <label class="color-scheme">
-          Theme:
-          <select>
-            <option value='light dark'>Automatic</option>
-            <option value='light'>Light</option>
-            <option value='dark'>Dark</option>
-          </select>
-      </label>`
+// Step 2: Automatic Current Page Link
+function highlightCurrentPage() {
+  const navLinks = $$("nav a");
+  const currentLink = navLinks.find(
+    (a) => a.host === location.host && a.pathname === location.pathname
   );
-select.addEventListener('input', function (event) {
-    console.log('color scheme changed to', event.target.value);
-});
-  
-  
+  currentLink?.classList.add("current");
+}
+
+// Step 3: Automatic Navigation Menu
+function createNavigation() {
+  const pages = [
+    { url: "", title: "Home" },
+    { url: "projects/", title: "Projects" },
+    { url: "about/", title: "About" },
+    { url: "contact/", title: "Contact" },
+    { url: "highlight", title: "Highlight"}
+  ];
+
+  const nav = document.createElement("nav");
+  document.body.prepend(nav);
+
+  const ARE_WE_HOME = document.documentElement.classList.contains("home");
+
+  for (let p of pages) {
+    let url = p.url;
+    if (!ARE_WE_HOME && !url.startsWith("http")) {
+      url = "../" + url;
+    }
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.textContent = p.title;
+
+    a.classList.toggle(
+      "current",
+      a.host === location.host && a.pathname === location.pathname
+    );
+
+    if (a.host !== location.host) {
+      a.target = "_blank";
+    }
+
+    nav.append(a);
+  }
+}
+
+// Step 4: Dark Mode Toggle
+function setupDarkModeToggle() {
+  document.body.insertAdjacentHTML(
+    "afterbegin",
+    `
+    <label class="color-scheme">
+      Theme:
+      <select>
+        <option value="light dark">Automatic</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>`
+  );
+
+  const select = document.querySelector(".color-scheme select");
+  const savedScheme = localStorage.colorScheme;
+
+  if (savedScheme) {
+    document.documentElement.style.setProperty("color-scheme", savedScheme);
+    select.value = savedScheme;
+  }
+
+  select.addEventListener("input", (event) => {
+    const scheme = event.target.value;
+    document.documentElement.style.setProperty("color-scheme", scheme);
+    localStorage.colorScheme = scheme;
+  });
+}
+
+// Initialize all features
+createNavigation();
+highlightCurrentPage();
+setupDarkModeToggle();
