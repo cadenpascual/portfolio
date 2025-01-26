@@ -13,9 +13,10 @@ currentLink = navLinks.find(
 );
   
   // If a matching link is found, add the 'current' class
-if (currentLink) {
-    currentLink?.classList.add('current');
-}
+  a.classList.toggle(
+    'current',
+    a.host === location.host && a.pathname === location.pathname
+  );
 
 let pages = [
     { url: '', title: 'Home' },
