@@ -7,18 +7,10 @@ html {
 }
 
 body {
-    /* Set line height to 1.5 times the font size
-         and use the OS’s UI font as the website font
-       */
-    font: 100%/1.5 system-ui;
-    max-width: 120ch;
-    margin-inline: auto;
-    padding: 3ch;
-  }
-
-nav ul,
-nav ul li {
-  display: contents;
+  font: 100%/1.5 system-ui;
+  max-width: 120ch;
+  margin-inline: auto;
+  padding: 3ch;
 }
 
 nav {
@@ -27,20 +19,21 @@ nav {
   border-bottom: 1px solid oklch(80% 3% 200);
 }
 
-.current {
-  flex: 1;
-  text-decoration: none;
-  color: inherit;
-  text-align: center;
-  padding: 0.5em;
+nav ul {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-#currlink {
-  border-bottom: 0.4em solid oklch(80% 3% 200);
-  padding-bottom: 0.1em;
+nav li {
+  flex: 1; /* Ensures each list item takes equal space */
+  text-align: center;
 }
 
 nav a {
+  display: block;
   text-decoration: none;
   color: inherit;
   padding: 0.5em;
@@ -50,6 +43,12 @@ nav a {
 
 nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
-  color: var(--color-accent); 
+  color: var(--color-accent);
 }
+
+nav a.current {
+  border-bottom: 0.4em solid oklch(80% 3% 200);
+  font-weight: bold;
+}
+
 
