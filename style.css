@@ -1,11 +1,11 @@
 html {
   accent-color: var(--color-accent);
-  color-scheme: dark;
-  border-bottom-color: var(--border-color)
+  color-scheme: dark light;
 }
 
 :root {
   --color-accent: oklch(65% 50% 0);
+  
 }
 
 body {
@@ -22,20 +22,10 @@ nav {
   border-bottom: 1px solid oklch(80% 3% 200);
 }
 
-nav ul {
-  display: flex;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-nav li {
-  flex: 1; /* Ensures each list item takes equal space */
-  text-align: center;
-}
 
 nav a {
+  flex: 1; /* Ensures each list item takes equal space */
+  text-align: center;
   display: block;
   text-decoration: none;
   color: inherit;
@@ -47,25 +37,64 @@ nav a {
 nav a:hover {
   border-bottom: 0.4em solid var(--color-accent);
   color: var(--color-accent);
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
 }
 
-.current {
+nav a.current {
   border-bottom: 0.4em solid oklch(80% 3% 200);
+  border-bottom-color: var(--border-color);
   padding-bottom: 0.1em;
 }
 
 label.color-scheme {
   position:absolute;
-  top:1rem;
+  top: 1rem;
   right: 1rem;
   font-family: inherit;
   font-size: 80%;
 }
 
 select {
-  padding: 0.5em;
-  font-size: 1rem;
+  padding: 0.25em;
 }
 
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+}
 
+article {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
+}
+
+h2 {
+  margin: 1;
+}
+
+h1 {
+  font-size: 400%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four equal-sized columns */
+}
+
+.grid-container dt {
+  grid-row: 1; /* Place <dt> elements in the first row */
+  font-weight: bold;
+}
+
+.grid-container dd {
+  grid-row: 2; /* Place <dd> elements in the second row */
+  margin: 0; /* Remove default margin for better alignment */
+}
 
