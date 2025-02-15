@@ -13,7 +13,7 @@ async function loadData() {
     }));
     displayStats();
     createScatterplot();
-
+    brushSelector();
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -105,6 +105,9 @@ function displayStats() {
 function createScatterplot() {
     const width = 1000;
     const height = 600;
+
+    // Sort commits by total lines in descending order
+    const sortedCommits = d3.sort(commits, (d) => -d.totalLines);
     // Creates Margin and Area for Scatterplot
     const margin = { top: 10, right: 10, bottom: 30, left: 20 };
     const usableArea = {
@@ -115,6 +118,12 @@ function createScatterplot() {
         width: width - margin.left - margin.right,
         height: height - margin.top - margin.bottom,
       };
+
+    const [minLines, maxLines] = d3.extent(commits, (d) => d.totalLines);
+    const rScale = d3
+        .scaleSqrt() // Change only this line
+        .domain([minLines, maxLines])
+        .range([5, 20]);
 
 
 
@@ -149,18 +158,22 @@ function createScatterplot() {
     const dots = svg.append('g').attr('class', 'dots');
     dots
         .selectAll('circle')
-        .data(commits)
+        .data(sortedCommits)
         .join('circle')
         .attr('cx', (d) => xScale(d.datetime))
         .attr('cy', (d) => yScale(d.hourFrac))
         .attr('r', 5)
         .attr('fill', 'steelblue')
+        .attr('r', (d) => rScale(d.totalLines))
+        .style('fill-opacity', 0.7) // Add transparency for overlapping dots
         .on('mouseenter', (event, commit) => {
+            d3.select(event.currentTarget).style('fill-opacity', 1); // Full opacity on hover
             updateTooltipContent(commit);
             updateTooltipVisibility(true);
             updateTooltipPosition(event);
           })
         .on('mouseleave', () => {
+            d3.select(event.currentTarget).style('fill-opacity', 0.7);
             updateTooltipContent({}); // Clear tooltip content
             updateTooltipVisibility(false);
           });
@@ -206,4 +219,10 @@ function updateTooltipPosition(event) {
     const tooltip = document.getElementById('commit-tooltip');
     tooltip.style.left = `${event.clientX}px`;
     tooltip.style.top = `${event.clientY}px`;
-  }
+}
+
+function brushSelector() {
+    const svg = document.querySelector('svg');
+    d3.select(svg).call(d3.brush());
+    d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+}
