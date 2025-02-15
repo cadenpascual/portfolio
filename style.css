@@ -46,6 +46,24 @@ nav a.current {
   padding-bottom: 0.1em;
 }
 
+/* Contact Form */
+form {
+  display:grid;
+  grid-template-columns: auto 1fr;
+  gap: 1em;
+}
+
+form label {
+  display: grid; /* Make each label a grid container */
+  grid-template-columns: subgrid; /* Use the form's grid columns */
+  grid-column: 1 / -1; /* Make labels span the full width of the form */
+}
+
+button {
+  grid-column: 1 / -1;
+}
+
+
 label.color-scheme {
   position:absolute;
   top: 1rem;
@@ -58,6 +76,8 @@ select {
   padding: 0.25em;
 }
 
+
+/* Projects Editor */
 .projects {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -157,3 +177,95 @@ path {
 path {
   cursor: pointer;
 }
+
+/* Style Meta Data*/
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* Four equal-sized columns */
+  border: 0.1em solid oklch(80% 3% 200);
+  padding: 1em;
+  margin: 0.5em;
+}
+
+.stats h3 {
+  grid-row: 0;
+}
+.stats dt {
+  grid-row: 2; /* Place <dt> elements in the first row */
+  color: gray;
+  font-size: small;
+}
+
+.stats dd {
+  grid-row: 3; /* Place <dd> elements in the second row */
+  margin: 0; /* Remove default margin for better alignment */
+  font-weight: 200;
+  font-size: larger;
+}
+
+/* Style Commit scatterplot*/
+.tick line {
+  stroke: #ccc;
+  stroke-width: 1px;
+  opacity: 0.5
+}
+
+circle {
+  transition: 200ms;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+circle:hover {
+  transform: scale(1.5);
+  fill: red !important; /* Change color on hover */
+  stroke: black; /* Add stroke for contrast */
+  stroke-width: 2px;
+}
+
+/*Tooltip Content*/
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Labels on the first column, values on the second */
+  gap: 0.5em 1em; /* Space between rows and columns */
+  margin: 0; /* Remove default margins */
+  /*Transition visibility*/
+  transition-duration: 500ms;
+  transition-property: opacity, visibility;
+}
+
+dl.info[hidden]:not(:hover, :focus-within) {
+  opacity: 0;
+  visibility: hidden;
+}
+
+dl.info dt {
+  font-weight: normal; /* Less prominent labels */
+  color: #666; /* Gray color for labels */
+}
+
+dl.info dd {
+  margin: 0; /* Remove default margin */
+  font-weight: bold; /* Make values stand out */
+}
+
+dl.info dd a {
+  color: rgb(28, 184, 236);
+}
+
+.tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  background: rgba(255, 255, 255, 0.8); /* Dark background for contrast */
+  color: #333;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  font-size: 0.9em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Box Shadow */
+  backdrop-filter:inherit;
+  pointer-events: none; /* Ensures it doesn't interfere with mouse events */
+}
+
+

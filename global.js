@@ -25,6 +25,7 @@ let pages = [
   { url: 'projects/', title: 'Projects' },
   { url: 'contact/', title: 'Contact'},
   { url: 'resume/', title: 'Resume'},
+  { url: 'meta/', title: 'Meta'},
   { url: 'highlight/', title: 'Highlight'}
 ];
 
@@ -41,7 +42,7 @@ for (let p of pages) {
 
   // Checks if we are on home page
   if (!ARE_WE_HOME && !url.startsWith('http')) {
-    url = '/portfolio/' + url;
+    url = '../' + url;
   }
   let title = p.title;
   let a = document.createElement('a');
