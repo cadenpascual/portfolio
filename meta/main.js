@@ -223,6 +223,7 @@ function updateTooltipPosition(event) {
     tooltip.style.top = `${event.clientY}px`;
 }
 
+<<<<<<< Updated upstream
 // Brush Functions
 let brushSelection = null;
 
@@ -309,4 +310,10 @@ function updateLanguageBreakdown() {
     }
   
     return breakdown;
+=======
+function brushSelector() {
+    const svg = document.querySelector('svg');
+    d3.select(svg).call(d3.brush());
+    d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+>>>>>>> Stashed changes
 }

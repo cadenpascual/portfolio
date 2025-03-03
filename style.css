@@ -282,8 +282,11 @@ dl.info dd a {
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
 }
+<<<<<<< Updated upstream
 
 circle.selected {
   fill: #ff6b6b;
 }
+=======
+>>>>>>> Stashed changes
 
