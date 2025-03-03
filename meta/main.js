@@ -224,6 +224,7 @@ function updateTooltipPosition(event) {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 // Brush Functions
 let brushSelection = null;
 
@@ -311,9 +312,14 @@ function updateLanguageBreakdown() {
   
     return breakdown;
 =======
+=======
+>>>>>>> Stashed changes
 function brushSelector() {
     const svg = document.querySelector('svg');
     d3.select(svg).call(d3.brush());
     d3.select(svg).selectAll('.dots, .overlay ~ *').raise();
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
