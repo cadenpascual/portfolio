@@ -66,14 +66,17 @@ function displayStats() {
     // Process commits first
     processCommits();
 
-    // Create the dl element
-    const dl = d3.select('#stats').append('dl').attr('class', 'stats');
+    // Use filteredCommits data else commit data
+    const statsData = filteredCommits.length > 0 ? filteredCommits : commits; 
+    console.log(statsData)
+    // Clear the dl element
+    const dl = d3.select('#stats').html('').append('dl').attr('class', 'stats');
 
     dl.append('h3').text('Summary')
     
     // Add total commits
     dl.append('dt').text('Commits');
-    dl.append('dd').text(commits.length);
+    dl.append('dd').text(statsData.length);
     
     // Add total files
     dl.append('dt').html('Files');
@@ -344,6 +347,7 @@ function updateCommitTime() {
   filterCommitsByTime();
   updateScatterplot(filteredCommits);
   updateFiles();
+  displayStats();
 }
 
 // Change time when slider is moved
@@ -358,6 +362,7 @@ function filterCommitsByTime() {
 // Step 2
 function updateFiles() {
   // Update the shown files
+  let fileTypeColors = d3.scaleOrdinal(d3.schemeTableau10);
   let lines = filteredCommits.flatMap((d) => d.lines);
   let files = [];
   files = d3
@@ -369,6 +374,7 @@ function updateFiles() {
   files = d3.sort(files, (d) => -d.lines.length);
   // Clear all files
   d3.select('.files').selectAll('div').remove();
+  console.log(files);
   let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
   filesContainer
     .append('dt')
@@ -389,6 +395,6 @@ function updateFiles() {
     .data(d => d.lines)
     .enter()
     .append('div')
-    .attr('class', 'line');
-
+    .attr('class', 'line')
+    .style('background', d => fileTypeColors(d.type));
 }
