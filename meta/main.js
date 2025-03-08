@@ -365,10 +365,30 @@ function updateFiles() {
     .map(([name, lines]) => {
       return { name, lines };
     });
-  
+  // Sort Files
+  files = d3.sort(files, (d) => -d.lines.length);
   // Clear all files
   d3.select('.files').selectAll('div').remove();
   let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
-  filesContainer.append('dt').append('code').text(d => d.name);
-  filesContainer.append('dd').text(d => d.lines.length);
+  filesContainer
+    .append('dt')
+    .append('code')
+    .text(d => d.name);
+
+  filesContainer
+    .select('dt')
+    .append('small')
+    .text(d => `${d.lines.length} lines`) 
+    .style('display', 'block')
+    .style('opacity', 0.7)
+    .style('font-size', '0.8em');
+
+  filesContainer
+    .append('dd')
+    .selectAll('div')
+    .data(d => d.lines)
+    .enter()
+    .append('div')
+    .attr('class', 'line');
+
 }
