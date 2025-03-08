@@ -42,7 +42,7 @@ for (let p of pages) {
 
   // Checks if we are on home page
   if (!ARE_WE_HOME && !url.startsWith('http')) {
-    url = '/portfolio/' + url;
+    url = '../' + url;
   }
   let title = p.title;
   let a = document.createElement('a');

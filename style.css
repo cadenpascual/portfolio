@@ -215,6 +215,10 @@ circle {
   transition: 200ms;
   transform-origin: center;
   transform-box: fill-box;
+  transition: all 200ms, r calc(var(--r) * 100ms);
+  @starting-style {
+    r: 0;
+  }
 }
 
 circle:hover {
@@ -282,14 +286,37 @@ dl.info dd a {
   stroke-dasharray: 5 3;
   animation: marching-ants 2s linear infinite;
 }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
 circle.selected {
   fill: #ff6b6b;
 }
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
+
+/* Lab 8 CSS */
+/* Style for Slider*/
+#slider-container {
+  display: flex;
+  align-items: baseline;
+  flex: 1;
+  margin-bottom: 10px;
+  align-items: stretch;
+  width: 100%;
+  padding: 10px;
+}
+
+#slider-label {
+  margin-right: 10px;
+  white-space: nowrap;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+#time-slider {
+  width: 100%;
+}
+
+#selected-time {
+  align-self: flex-end; 
+  margin-left: auto;
+}
 
