@@ -343,6 +343,7 @@ function updateCommitTime() {
 
   filterCommitsByTime();
   updateScatterplot(filteredCommits);
+  updateFiles();
 }
 
 // Change time when slider is moved
@@ -351,4 +352,23 @@ timeSlider.addEventListener('input', updateCommitTime);
 function filterCommitsByTime() {
   filteredCommits = commits.filter(commit => commit.datetime <= commitMaxTime);
   return filteredCommits;
+}
+
+
+// Step 2
+function updateFiles() {
+  // Update the shown files
+  let lines = filteredCommits.flatMap((d) => d.lines);
+  let files = [];
+  files = d3
+    .groups(lines, (d) => d.file)
+    .map(([name, lines]) => {
+      return { name, lines };
+    });
+  
+  // Clear all files
+  d3.select('.files').selectAll('div').remove();
+  let filesContainer = d3.select('.files').selectAll('div').data(files).enter().append('div');
+  filesContainer.append('dt').append('code').text(d => d.name);
+  filesContainer.append('dd').text(d => d.lines.length);
 }
